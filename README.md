@@ -1,7 +1,6 @@
 # — Portfolio
 
-Personal portfolio website for Harshita Dhanwani, Content Lead.
-
+Personal portfolio 
 
 ## Tech
 - Pure HTML + CSS + JavaScript
