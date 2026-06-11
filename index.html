@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Harshita Dhanwani — Content Lead</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream:  #F5F0E8;
+    --cream2: #EDE7D9;
+    --cream3: #E4DDD0;
+    --ink:    #1C1814;
+    --ink2:   #3A342C;
+    --rust:   #B5451B;
+    --rust2:  #D4622E;
+    --gold:   #C9963A;
+    --muted:  #7A6E62;
+    --rule:   #C8BCAA;
+    --ff-head:'Playfair Display', Georgia, serif;
+    --ff-body:'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: var(--ff-body); font-weight: 300; overflow-x: hidden; cursor: none; }
+
+  /* CURSOR */
+  .cursor { width:10px;height:10px;background:var(--rust);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s; }
+  .cursor-ring { width:36px;height:36px;border:1px solid var(--rust);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .25s;opacity:.6; }
+
+  /* NAV */
+  nav { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:22px 52px;transition:background .3s,backdrop-filter .3s; }
+  .nav-logo { font-family:var(--ff-head);font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-decoration:none; }
+  .nav-links { display:flex;gap:32px;list-style:none; }
+  .nav-links a { font-size:11px;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:var(--ink2);text-decoration:none;position:relative; }
+  .nav-links a::after { content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--rust);transition:width .3s; }
+  .nav-links a:hover::after { width:100%; }
+
+  /* HERO */
+  #hero { min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden; }
+  .hero-left { display:flex;flex-direction:column;justify-content:flex-end;padding:0 52px 72px;position:relative;z-index:2; }
+  .hero-eyebrow { font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust);margin-bottom:24px;opacity:0;animation:fadeUp .8s .2s forwards; }
+  .hero-name { font-family:var(--ff-head);font-size:clamp(52px,7vw,96px);font-weight:900;line-height:.92;color:var(--ink);opacity:0;animation:fadeUp .9s .35s forwards; }
+  .hero-name em { font-style:italic;color:var(--rust);display:block; }
+  .hero-tagline { margin-top:28px;font-size:15px;font-weight:300;line-height:1.7;color:var(--ink2);max-width:380px;opacity:0;animation:fadeUp .9s .55s forwards; }
+  .hero-cta { margin-top:44px;display:flex;gap:16px;align-items:center;opacity:0;animation:fadeUp .9s .75s forwards; }
+  .btn-primary { display:inline-block;padding:14px 32px;background:var(--ink);color:var(--cream);font-family:var(--ff-body);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;transition:background .25s; }
+  .btn-primary:hover { background:var(--rust); }
+  .btn-ghost { font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:2px;transition:color .2s,border-color .2s; }
+  .btn-ghost:hover { color:var(--rust);border-color:var(--rust); }
+  .hero-right { background:var(--cream2);position:relative;overflow:hidden; }
+  .hero-bg-num { font-family:var(--ff-head);font-size:28vw;font-weight:900;color:rgba(28,24,20,.04);position:absolute;bottom:-6vw;right:-4vw;line-height:1;pointer-events:none;user-select:none; }
+  .hero-stat-stack { display:flex;flex-direction:column;gap:0;width:100%;max-width:320px;position:relative;z-index:2;margin:auto;opacity:0;animation:fadeUp 1s .9s forwards; }
+  .hero-right-inner { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:40px; }
+  .hero-stat { padding:28px 0;border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:6px; }
+  .hero-stat:first-child { border-top:1px solid var(--rule); }
+  .stat-num { font-family:var(--ff-head);font-size:42px;font-weight:700;line-height:1;color:var(--rust); }
+  .stat-label { font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted); }
+
+  /* MARQUEE */
+  .marquee-strip { background:var(--ink);padding:14px 0;overflow:hidden;white-space:nowrap; }
+  .marquee-inner { display:inline-block;animation:marquee 28s linear infinite; }
+  .marquee-inner span { font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cream);margin:0 28px; }
+  .marquee-inner span.dot { color:var(--rust);margin:0 6px; }
+
+  /* ABOUT */
+  #about { display:grid;grid-template-columns:80px 1fr;gap:60px;padding:120px 52px;max-width:1300px;margin:0 auto; }
+  .about-label { font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust);writing-mode:vertical-rl;transform:rotate(180deg);height:fit-content;align-self:start;margin-top:8px; }
+  .about-headline { font-family:var(--ff-head);font-size:clamp(28px,3.5vw,48px);font-weight:700;line-height:1.2;color:var(--ink);margin-bottom:32px; }
+  .about-headline em { font-style:italic;color:var(--rust); }
+  .about-text { font-size:16px;line-height:1.85;color:var(--ink2);max-width:640px;margin-bottom:20px; }
+  .about-skills { margin-top:44px;display:flex;flex-wrap:wrap;gap:10px; }
+  .skill-pill { padding:8px 18px;border:1px solid var(--rule);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);transition:background .2s,color .2s,border-color .2s;cursor:default; }
+  .skill-pill:hover { background:var(--ink);color:var(--cream);border-color:var(--ink); }
+
+  /* WRITING — tabbed */
+  #work { padding:80px 52px 120px;background:var(--cream2); }
+  .section-header { display:flex;justify-content:space-between;align-items:baseline;margin-bottom:40px;border-top:1px solid var(--rule);padding-top:24px; }
+  .section-title { font-family:var(--ff-head);font-size:clamp(32px,4vw,56px);font-weight:900;line-height:1; }
+  .section-count { font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted); }
+
+  /* Tab nav */
+  .tab-nav { display:flex;gap:0;margin-bottom:48px;border-bottom:1px solid var(--rule);overflow-x:auto; }
+  .tab-btn { padding:14px 28px;font-family:var(--ff-body);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;background:none;border:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;white-space:nowrap; }
+  .tab-btn.active { color:var(--rust);border-bottom-color:var(--rust); }
+  .tab-btn:hover { color:var(--ink); }
+
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
+
+  /* Writing grid */
+  .work-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:2px; }
+  .work-grid.two-col { grid-template-columns:repeat(2,1fr); }
+  .work-card { background:var(--cream);padding:36px 32px;position:relative;overflow:hidden;cursor:none;transition:background .3s;display:flex;flex-direction:column;min-height:280px;text-decoration:none;color:inherit; }
+  .work-card::before { content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--rust);transform:scaleX(0);transform-origin:left;transition:transform .35s; }
+  .work-card:hover { background:var(--ink); }
+  .work-card:hover::before { transform:scaleX(1); }
+  .work-card:hover .card-num,
+  .work-card:hover .card-title,
+  .work-card:hover .card-desc,
+  .work-card:hover .card-arrow { color:var(--cream); }
+  .work-card:hover .card-tag { border-color:rgba(245,240,232,.25);color:rgba(245,240,232,.6); }
+  .work-card:hover .card-arrow { color:var(--rust2); }
+  .card-num { font-family:var(--ff-head);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--rust);margin-bottom:16px;transition:color .3s; }
+  .card-tag { display:inline-block;padding:4px 12px;border:1px solid var(--rule);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;transition:color .3s,border-color .3s;width:fit-content; }
+  .card-title { font-family:var(--ff-head);font-size:19px;font-weight:700;line-height:1.28;color:var(--ink);margin-bottom:12px;flex:1;transition:color .3s; }
+  .card-desc { font-size:12.5px;line-height:1.65;color:var(--muted);margin-bottom:20px;transition:color .3s; }
+  .card-arrow { font-size:18px;color:var(--rule);transition:color .3s,transform .3s;align-self:flex-end; }
+  .work-card:hover .card-arrow { transform:translate(4px,-4px); }
+
+  /* RESULTS */
+  #results { padding:120px 52px; }
+  .results-inner { max-width:1200px;margin:0 auto; }
+  .results-split { display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;margin-top:80px; }
+  .results-text .eyebrow { font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust);margin-bottom:20px;display:block; }
+  .results-text h3 { font-family:var(--ff-head);font-size:clamp(26px,3vw,40px);font-weight:700;line-height:1.2;margin-bottom:24px; }
+  .results-text p { font-size:15px;line-height:1.85;color:var(--ink2); }
+  .results-metrics { display:grid;grid-template-columns:1fr 1fr;gap:2px; }
+  .metric-box { background:var(--cream2);padding:36px 28px;border-bottom:3px solid transparent;transition:border-color .3s; }
+  .metric-box:hover { border-color:var(--rust); }
+  .metric-big { font-family:var(--ff-head);font-size:52px;font-weight:900;line-height:1;color:var(--rust); }
+  .metric-desc { margin-top:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5; }
+
+  /* EXPERTISE */
+  #expertise { padding:80px 52px;background:var(--ink); }
+  .expertise-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08);margin-top:60px; }
+  .exp-cell { background:var(--ink);padding:44px 32px;transition:background .25s; }
+  .exp-cell:hover { background:var(--rust); }
+  .exp-icon { font-size:26px;margin-bottom:18px; }
+  .exp-title { font-family:var(--ff-head);font-size:18px;font-weight:700;color:var(--cream);margin-bottom:10px;line-height:1.25; }
+  .exp-desc { font-size:13px;line-height:1.7;color:rgba(245,240,232,.55); }
+  #expertise .section-header { border-color:rgba(255,255,255,.12); }
+  #expertise .section-title { color:var(--cream); }
+  #expertise .section-count { color:rgba(245,240,232,.4); }
+
+  /* CONTACT */
+  #contact { padding:120px 52px;text-align:center;position:relative;overflow:hidden; }
+  .contact-bg-word { font-family:var(--ff-head);font-size:22vw;font-weight:900;color:rgba(28,24,20,.04);position:absolute;bottom:-4vw;left:50%;transform:translateX(-50%);pointer-events:none;user-select:none;white-space:nowrap; }
+  .contact-eyebrow { font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust);margin-bottom:28px; }
+  .contact-headline { font-family:var(--ff-head);font-size:clamp(36px,6vw,84px);font-weight:900;line-height:1;color:var(--ink);margin-bottom:16px; }
+  .contact-headline em { font-style:italic;color:var(--rust); }
+  .contact-sub { font-size:16px;color:var(--muted);max-width:480px;margin:0 auto 52px;line-height:1.7; }
+  .contact-links { display:flex;justify-content:center;gap:16px;flex-wrap:wrap;position:relative;z-index:2; }
+  .contact-link { display:flex;align-items:center;gap:10px;padding:14px 28px;border:1px solid var(--rule);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-decoration:none;transition:background .25s,color .25s,border-color .25s; }
+  .contact-link:hover { background:var(--ink);color:var(--cream);border-color:var(--ink); }
+
+  /* FOOTER */
+  footer { background:var(--ink);color:rgba(245,240,232,.4);padding:28px 52px;display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.12em; }
+  footer span { color:var(--rust); }
+
+  /* REVEAL */
+  .reveal { opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease; }
+  .reveal.visible { opacity:1;transform:none; }
+
+  @keyframes fadeUp { to { opacity:1;transform:none; } }
+  @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  @media(max-width:900px){
+    #hero{grid-template-columns:1fr}
+    .hero-right{display:none}
+    nav{padding:18px 24px}
+    .nav-links{gap:18px}
+    #about{grid-template-columns:1fr;gap:24px;padding:80px 24px}
+    .about-label{writing-mode:horizontal-tb;transform:none}
+    #work{padding:60px 24px 80px}
+    .work-grid,.work-grid.two-col{grid-template-columns:1fr}
+    .hero-left{padding:120px 24px 60px}
+    #results{padding:80px 24px}
+    .results-split{grid-template-columns:1fr;gap:48px}
+    #expertise{padding:60px 24px}
+    .expertise-grid{grid-template-columns:1fr 1fr}
+    #contact{padding:80px 24px}
+    footer{flex-direction:column;gap:10px;text-align:center}
+    .tab-btn{padding:12px 18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#hero">HD</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Writing</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Content Lead · 7 Years · Jaipur, IN</p>
+    <h1 class="hero-name">Words<br>that<br><em>work.</em></h1>
+    <p class="hero-tagline">I'm Harshita — a content strategist and writer who builds brand voices, leads editorial teams, and drives organic growth across fashion, travel, beauty, lifestyle, and tech.</p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">See My Writing</a>
+      <a href="#contact" class="btn-ghost">Let's Talk →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner">
+      <div class="hero-stat-stack">
+        <div class="hero-stat"><div class="stat-num">7+</div><div class="stat-label">Years Writing Professionally</div></div>
+        <div class="hero-stat"><div class="stat-num">3×</div><div class="stat-label">Organic Traffic Growth Delivered</div></div>
+        <div class="hero-stat"><div class="stat-num">6+</div><div class="stat-label">Niches & Content Formats</div></div>
+        <div class="hero-stat"><div class="stat-num">30%</div><div class="stat-label">Faster Delivery via AI Workflows</div></div>
+      </div>
+    </div>
+    <div class="hero-bg-num">7</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Fashion & Lifestyle</span><span class="dot">◆</span><span>SEO Blogs</span><span class="dot">◆</span><span>Travel Writing</span><span class="dot">◆</span><span>Ad Copywriting</span><span class="dot">◆</span><span>Email Campaigns</span><span class="dot">◆</span><span>Script Writing</span><span class="dot">◆</span><span>Website Copy</span><span class="dot">◆</span><span>Technical Content</span><span class="dot">◆</span><span>LinkedIn Writing</span><span class="dot">◆</span><span>Content Leadership</span><span class="dot">◆</span>
+    <span>Fashion & Lifestyle</span><span class="dot">◆</span><span>SEO Blogs</span><span class="dot">◆</span><span>Travel Writing</span><span class="dot">◆</span><span>Ad Copywriting</span><span class="dot">◆</span><span>Email Campaigns</span><span class="dot">◆</span><span>Script Writing</span><span class="dot">◆</span><span>Website Copy</span><span class="dot">◆</span><span>Technical Content</span><span class="dot">◆</span><span>LinkedIn Writing</span><span class="dot">◆</span><span>Content Leadership</span><span class="dot">◆</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-label reveal">About Me</div>
+  <div class="about-body">
+    <h2 class="about-headline reveal">I don't just write —<br>I <em>architect</em> content.</h2>
+    <p class="about-text reveal">With 7+ years across fashion, travel, beauty, lifestyle, and tech, I've built content strategies that rank, convert, and actually get read. From managing editorial teams to running multi-brand calendars — I bring both the creative eye and the analytical discipline that brands need to grow.</p>
+    <p class="about-text reveal">I work across the full content stack: SEO blogs, landing pages, Google & Facebook ad copy, email newsletters, video scripts, LinkedIn content, website copy, and press releases. Tools: SEMrush, Ahrefs, Surfer SEO, Google Analytics, WordPress, and AI-powered workflows.</p>
+    <div class="about-skills reveal">
+      <div class="skill-pill">SEO Strategy</div>
+      <div class="skill-pill">Blog Writing</div>
+      <div class="skill-pill">Ad Copywriting</div>
+      <div class="skill-pill">Email Marketing</div>
+      <div class="skill-pill">Script Writing</div>
+      <div class="skill-pill">Website Copy</div>
+      <div class="skill-pill">LinkedIn Content</div>
+      <div class="skill-pill">Team Leadership</div>
+      <div class="skill-pill">CMS Management</div>
+      <div class="skill-pill">SEMrush · Ahrefs</div>
+      <div class="skill-pill">Surfer SEO</div>
+      <div class="skill-pill">AI Workflows</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK — TABBED -->
+<section id="work">
+  <div class="section-header reveal">
+    <h2 class="section-title">Writing Samples</h2>
+    <span class="section-count">Live Work</span>
+  </div>
+
+  <div class="tab-nav reveal">
+    <button class="tab-btn active" data-tab="fashion">Fashion</button>
+    <button class="tab-btn" data-tab="travel">Travel</button>
+    <button class="tab-btn" data-tab="technical">Technical</button>
+    <button class="tab-btn" data-tab="website">Website Copy</button>
+    <button class="tab-btn" data-tab="scripts">Scripts</button>
+    <button class="tab-btn" data-tab="linkedin">LinkedIn</button>
+    <button class="tab-btn" data-tab="misc">Miscellaneous</button>
+  </div>
+
+  <!-- FASHION -->
+  <div class="tab-panel active" id="tab-fashion">
+    <div class="work-grid">
+      <a class="work-card" href="https://zarijaipur.com/blogs/news/prints-that-describe-all-your-moods-zari-jaipur" target="_blank">
+        <div class="card-num">01</div><div class="card-tag">Zari Jaipur · Blog</div>
+        <div class="card-title">Prints That Describe All Your Moods</div>
+        <div class="card-desc">A lifestyle-led fashion blog mapping saree prints to emotions — from floral happiness to bold, powerful patterns. Brand storytelling that sells through feeling.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.zarijaipur.com/blogs/news/everlasting-glance-of-leheriya-watch-our-divas-wearing-this" target="_blank">
+        <div class="card-num">02</div><div class="card-tag">Zari Jaipur · Blog</div>
+        <div class="card-title">Everlasting Glance of Leheriya</div>
+        <div class="card-desc">Celebrating the timeless Rajasthani Leheriya craft — cultural storytelling woven with aspirational fashion writing that connects heritage with modern style.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.fabpersona.com/blogs/news/look-your-ideal-wearing-chikankari-sarees-follow-the-trend-with-grace" target="_blank">
+        <div class="card-num">03</div><div class="card-tag">Fabpersona · Blog</div>
+        <div class="card-title">Look Your Ideal in Chikankari Sarees</div>
+        <div class="card-desc">A trend-led editorial on Chikankari sarees that blends styling advice with cultural context — written to drive organic traffic and product discovery.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.fabpersona.com/blogs/news/be-the-radha-of-your-kanha-this-janmashtami-with-our-opulent-outfits" target="_blank">
+        <div class="card-num">04</div><div class="card-tag">Fabpersona · Festive</div>
+        <div class="card-title">Be the Radha of Your Kanha This Janmashtami</div>
+        <div class="card-desc">Festive fashion writing timed to cultural moments — emotionally resonant copy that speaks directly to the buyer's identity and celebration spirit.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.zarijaipur.com/blogs/news/libaaz-e-eid-a-perfect-attire-for-your-festive-celebrations" target="_blank">
+        <div class="card-num">05</div><div class="card-tag">Zari Jaipur · Festive</div>
+        <div class="card-title">Libaaz-e-Eid: Perfect Attire for Festive Celebrations</div>
+        <div class="card-desc">Eid fashion guide crafted around the emotion of dressing for celebration — blending Urdu sensibility with contemporary SEO-friendly fashion writing.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.fabpersona.com/blogs/news/what-should-i-wear-on-diwali-pooja-banarasi-silk-suit" target="_blank">
+        <div class="card-num">06</div><div class="card-tag">Fabpersona · Diwali</div>
+        <div class="card-title">What Should I Wear on Diwali Pooja? Banarasi Silk</div>
+        <div class="card-desc">Intent-driven content targeting a high-search festive query — combines style advice with cultural authenticity to guide purchase decisions organically.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.zarijaipur.com/blogs/news/load-your-special-day-with-culture-of-leheriya" target="_blank">
+        <div class="card-num">07</div><div class="card-tag">Zari Jaipur · Culture</div>
+        <div class="card-title">Load Your Special Day with the Culture of Leheriya</div>
+        <div class="card-desc">Deep-dive into Leheriya as a cultural expression — showcasing the ability to write about crafts with depth, warmth, and editorial polish.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://theprintroots.com/blogs/news/timeless-blooms-of-indigo-print-printroots" target="_blank">
+        <div class="card-num">08</div><div class="card-tag">The Print Roots · Heritage</div>
+        <div class="card-title">Timeless Blooms of Indigo Print</div>
+        <div class="card-desc">Artisan textile storytelling — tracing the heritage of indigo block prints through the lens of contemporary fashion, written for a niche craft audience.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- TRAVEL -->
+  <div class="tab-panel" id="tab-travel">
+    <div class="work-grid">
+      <a class="work-card" href="https://www.nextholidays.com/blog/romantic-places-for-valentine-s-day-in-dubai-2024" target="_blank">
+        <div class="card-num">01</div><div class="card-tag">Next Holidays · SEO Blog</div>
+        <div class="card-title">Romantic Places for Valentine's Day in Dubai 2024</div>
+        <div class="card-desc">Intent-matched travel guide targeting high-competition Valentine's + Dubai keywords. Part of the content cluster strategy that tripled organic traffic over 24 months.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.nextholidays.com/blog/ultimate-guide-to-diwali-in-dubai-2023" target="_blank">
+        <div class="card-num">02</div><div class="card-tag">Next Holidays · Guide</div>
+        <div class="card-title">Ultimate Guide to Diwali in Dubai 2023</div>
+        <div class="card-desc">Seasonal content built around festive travel intent — a long-form guide that merges cultural relevance with destination SEO for Indian travellers abroad.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.nextholidays.com/blog/top-beaches-in-dubai-for-ladies" target="_blank">
+        <div class="card-num">03</div><div class="card-tag">Next Holidays · Listicle</div>
+        <div class="card-title">Top Beaches in Dubai for Ladies</div>
+        <div class="card-desc">Niche audience targeting — a carefully crafted travel roundup written for women travellers, balancing practical information with an inviting, confident tone.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.nextholidays.com/blog/celebrate-national-girlfriend-day" target="_blank">
+        <div class="card-num">04</div><div class="card-tag">Next Holidays · Lifestyle</div>
+        <div class="card-title">Celebrate National Girlfriend Day</div>
+        <div class="card-desc">Occasion-based travel content that ties lifestyle moments to travel inspiration — lightweight, shareable format designed to capture social and search traffic.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.nextholidays.com/blog/romantic-things-to-do-in-dubai-for-couples" target="_blank">
+        <div class="card-num">05</div><div class="card-tag">Next Holidays · Couples</div>
+        <div class="card-title">Romantic Things to Do in Dubai for Couples</div>
+        <div class="card-desc">High-intent couples travel guide — evergreen content written to capture year-round organic search around Dubai romance and honeymoon planning.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- TECHNICAL -->
+  <div class="tab-panel" id="tab-technical">
+    <div class="work-grid two-col">
+      <a class="work-card" href="https://provistechnologies.com/blog/how-to-choose-the-best-ui-ux-design-company/" target="_blank">
+        <div class="card-num">01</div><div class="card-tag">Provis Technologies · Guide</div>
+        <div class="card-title">How to Choose the Best UI/UX Design Company</div>
+        <div class="card-desc">A comprehensive buyer's guide in the competitive B2B tech niche — structured for SERP featured snippets, covering key decision factors for businesses.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://provistechnologies.com/blog/best-databases-for-web-apps/" target="_blank">
+        <div class="card-num">02</div><div class="card-tag">Provis Technologies · Tech</div>
+        <div class="card-title">Best Databases for Web Apps</div>
+        <div class="card-desc">Technical comparison content written for a developer and business audience — demonstrates ability to research and communicate complex tech topics with clarity.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- WEBSITE COPY -->
+  <div class="tab-panel" id="tab-website">
+    <div class="work-grid">
+      <a class="work-card" href="https://drive.google.com/file/d/1UojLQkB1vFvS0-14CgPaos8T-uFH1Wim/view?usp=drive_link" target="_blank">
+        <div class="card-num">01</div><div class="card-tag">Website Copy</div>
+        <div class="card-title">Website Copy Sample 01</div>
+        <div class="card-desc">Brand website copy crafted for tone, clarity, and conversion — structured to guide visitors through the brand story and towards action.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://drive.google.com/file/d/1J_IeDZaUm5LC1A_jhKmg8lwAJ0vKHAZ3/view?usp=drive_link" target="_blank">
+        <div class="card-num">02</div><div class="card-tag">Website Copy</div>
+        <div class="card-title">Website Copy Sample 02</div>
+        <div class="card-desc">Homepage and product page copy written to balance SEO keyword integration with engaging, human brand voice across key conversion pages.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://drive.google.com/file/d/1lSo1E0vr-ip1AlO1cALGUpmmqwLthd0J/view?usp=drive_link" target="_blank">
+        <div class="card-num">03</div><div class="card-tag">Website Copy</div>
+        <div class="card-title">Website Copy Sample 03</div>
+        <div class="card-desc">Full-page website copy demonstrating versatility across industries — headlines, subheads, body copy, and CTAs all working together cohesively.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://drive.google.com/file/d/1CyDOUgtYfLxZFU6ZNevO9LDYYLf9_gYE/view?usp=drive_link" target="_blank">
+        <div class="card-num">04</div><div class="card-tag">Website Copy</div>
+        <div class="card-title">Website Copy Sample 04</div>
+        <div class="card-desc">Service page copy focused on communicating value propositions clearly — written to build trust, handle objections, and drive enquiries.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://drive.google.com/file/d/1j3mdQ4hb6wkET9GQiDW1KAYOjwHMABssG/view?usp=drive_link" target="_blank">
+        <div class="card-num">05</div><div class="card-tag">Website Copy</div>
+        <div class="card-title">Website Copy Sample 05</div>
+        <div class="card-desc">About page and brand story writing — the craft of making a business feel human, relatable, and worth choosing, told through strategic narrative.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://drive.google.com/file/d/1RdHUMnelGpClAZYkXW8eypPsshmcDjwj/view?usp=drive_link" target="_blank">
+        <div class="card-num">06</div><div class="card-tag">Website Copy</div>
+        <div class="card-title">Website Copy Sample 06</div>
+        <div class="card-desc">E-commerce product and category page copy — balancing keyword density with natural, persuasive writing that helps customers make confident purchase decisions.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <div class="tab-panel" id="tab-scripts">
+    <div class="work-grid two-col">
+      <a class="work-card" href="https://drive.google.com/file/d/1u0yM7P4ZIg6GPkJduHDVP5gRvG3m0Q0a/view?usp=drive_link" target="_blank">
+        <div class="card-num">01</div><div class="card-tag">Script Writing</div>
+        <div class="card-title">Video Script Sample 01</div>
+        <div class="card-desc">Brand video script written for tone, pacing, and visual storytelling — structured around a clear narrative arc with a strong opening hook and CTA close.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://drive.google.com/file/d/16wApnlb_PB8PtQ1RrpH1jAjHWCa6XCrP/view?usp=drive_link" target="_blank">
+        <div class="card-num">02</div><div class="card-tag">Script Writing</div>
+        <div class="card-title">Video Script Sample 02</div>
+        <div class="card-desc">Social or explainer video script — concise, punchy copy written to hold attention in short-form video formats while delivering a clear brand message.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- LINKEDIN -->
+  <div class="tab-panel" id="tab-linkedin">
+    <div class="work-grid two-col">
+      <a class="work-card" href="https://www.linkedin.com/posts/harshita-dhanwani-517774198_namaste-brands-activity-7218277267674681344-RPf6" target="_blank">
+        <div class="card-num">01</div><div class="card-tag">LinkedIn · Brand Voice</div>
+        <div class="card-title">"Namaste, Brands" — LinkedIn Post</div>
+        <div class="card-desc">A bold, direct-address LinkedIn post written to command attention in the feed — demonstrates voice, confidence, and the ability to write for professional social audiences.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://www.linkedin.com/posts/harshita-dhanwani-517774198_he-him-love-activity-7049733287061127168-DEJ8" target="_blank">
+        <div class="card-num">02</div><div class="card-tag">LinkedIn · Storytelling</div>
+        <div class="card-title">Personal Storytelling Post</div>
+        <div class="card-desc">Emotionally resonant LinkedIn storytelling — the kind of post that gets shared, saves, and builds genuine connection with an audience beyond just professional updates.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://drive.google.com/file/d/1-r92UYLZ8sWSq3hYhXmRF5o5rJPlKzAE/view?usp=drive_link" target="_blank">
+        <div class="card-num">03</div><div class="card-tag">LinkedIn · Writing Samples</div>
+        <div class="card-title">LinkedIn Writing Sample Doc</div>
+        <div class="card-desc">A curated collection of LinkedIn content samples — showing range across formats: thought leadership, brand announcements, storytelling, and engagement hooks.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- MISC -->
+  <div class="tab-panel" id="tab-misc">
+    <div class="work-grid two-col">
+      <a class="work-card" href="https://drive.google.com/file/d/1lVok-xqT3gpBkwB1MdcwrxSAgAPdOyP-/view?usp=drive_link" target="_blank">
+        <div class="card-num">01</div><div class="card-tag">Miscellaneous</div>
+        <div class="card-title">Writing Sample — Misc 01</div>
+        <div class="card-desc">A diverse writing sample showcasing range beyond core niches — demonstrating adaptability of voice, tone, and format across different content requirements.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://drive.google.com/file/d/1Y74RNoChCsmXlRalxL9AupAjgXQBQ50c/view?usp=drive_link" target="_blank">
+        <div class="card-num">02</div><div class="card-tag">Miscellaneous</div>
+        <div class="card-title">Writing Sample — Misc 02</div>
+        <div class="card-desc">Content written for a non-standard brief — showing the ability to research, interpret, and deliver quality writing outside established comfort zones.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://drive.google.com/file/d/1bXCcUBSvqE_mddWeALqD_i97Cs344Vvg/view?usp=drive_link" target="_blank">
+        <div class="card-num">03</div><div class="card-tag">Miscellaneous</div>
+        <div class="card-title">Writing Sample — Misc 03</div>
+        <div class="card-desc">Cross-format writing sample — demonstrating editorial versatility and the consistent application of strong writing craft regardless of topic or audience.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+      <a class="work-card" href="https://drive.google.com/file/d/1riKtW1rhOb7BOGMekUSqmO-ARwlBkgz8/view?usp=drive_link" target="_blank">
+        <div class="card-num">04</div><div class="card-tag">Miscellaneous</div>
+        <div class="card-title">Writing Sample — Misc 04</div>
+        <div class="card-desc">Additional writing sample from the freelance archive — evidence of the broad range of work completed across industries during early career years.</div>
+        <div class="card-arrow">↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="results-inner">
+    <div class="section-header reveal">
+      <h2 class="section-title">Impact & Results</h2>
+      <span class="section-count">Case Study</span>
+    </div>
+    <div class="results-split">
+      <div class="results-text reveal">
+        <span class="eyebrow">Next Holidays — 24-Month Content Strategy</span>
+        <h3>How strategic SEO content tripled organic reach</h3>
+        <p>Starting from scratch, I built a keyword-led content architecture around destination guides, travel tips, and booking intent pages. Through SERP analysis, user intent mapping, and regular content refreshes, the site grew from minimal visibility to a significant organic presence. Evergreen content clusters reduced dependence on seasonal spikes and built sustainable month-on-month growth — all without paid acquisition.</p>
+      </div>
+      <div class="results-metrics reveal">
+        <div class="metric-box"><div class="metric-big">3×</div><div class="metric-desc">Organic Traffic Growth in 24 Months</div></div>
+        <div class="metric-box"><div class="metric-big">30%</div><div class="metric-desc">Faster Turnaround via AI Workflows</div></div>
+        <div class="metric-box"><div class="metric-big">+25%</div><div class="metric-desc">Avg CTR Uplift on Google Ads</div></div>
+        <div class="metric-box"><div class="metric-big">100%</div><div class="metric-desc">On-Time Delivery Across 3 Brands</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="section-header reveal">
+    <h2 class="section-title">What I Do</h2>
+    <span class="section-count">Services</span>
+  </div>
+  <div class="expertise-grid">
+    <div class="exp-cell reveal"><div class="exp-icon">✦</div><div class="exp-title">SEO Content Strategy</div><div class="exp-desc">Keyword research, SERP analysis, content clustering, and competitor benchmarking — built to rank and convert organically.</div></div>
+    <div class="exp-cell reveal"><div class="exp-icon">✦</div><div class="exp-title">Editorial Leadership</div><div class="exp-desc">Managing writer teams, setting quality standards, multi-brand calendar management, and consistent on-time delivery.</div></div>
+    <div class="exp-cell reveal"><div class="exp-icon">✦</div><div class="exp-title">Copywriting & Scripts</div><div class="exp-desc">High-converting copy for Google Ads, Facebook Ads, email campaigns, banners, landing pages, and video scripts.</div></div>
+    <div class="exp-cell reveal"><div class="exp-icon">✦</div><div class="exp-title">Brand Storytelling</div><div class="exp-desc">Developing a consistent brand voice across blogs, social, web copy, press releases, and scripts — across diverse niches.</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="contact-eyebrow reveal">Open to Opportunities</p>
+  <h2 class="contact-headline reveal">Let's make<br>something <em>great.</em></h2>
+  <p class="contact-sub reveal">Looking for a content lead who can build strategy, lead teams, and still write a headline that stops the scroll? Let's talk.</p>
+  <div class="contact-links reveal">
+    <a href="mailto:dhanwaniharshita1234@gmail.com" class="contact-link">✉ &nbsp;Email Me</a>
+    <a href="https://www.linkedin.com/in/harshita-dhanwani-517774198" target="_blank" class="contact-link">in &nbsp;LinkedIn</a>
+    <a href="tel:+919799537359" class="contact-link">☏ &nbsp;+91 97995 37359</a>
+  </div>
+  <div class="contact-bg-word">Hello.</div>
+</section>
+
+<footer>
+  <div>© 2025 Harshita Dhanwani — <span>hellofromharshita.com</span></div>
+  <div>Content Lead · Jaipur, India</div>
+</footer>
+
+<script>
+  // Cursor
+  const cur = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px';
+    setTimeout(()=>{ ring.style.left=e.clientX+'px'; ring.style.top=e.clientY+'px'; }, 60);
+  });
+
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => {
+      if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'), i*70); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Nav on scroll
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 40){
+      nav.style.background = 'rgba(245,240,232,0.88)';
+      nav.style.backdropFilter = 'blur(12px)';
+      nav.style.boxShadow = '0 1px 0 rgba(200,188,170,0.4)';
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.backdropFilter = 'none';
+      nav.style.boxShadow = 'none';
+    }
+  });
+</script>
+</body>
+</html>
